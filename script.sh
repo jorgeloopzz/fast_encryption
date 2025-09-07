@@ -17,10 +17,14 @@ encrypt_disk () {
 		# umount $mountpoint
 		echo "The $mountpoint is not empty"
 	else
-		echo "No mountpoint founded"
+		:
 	fi
+
 	# cryptsetup luksFormat $hard_drive
-	# echo "cryptsetup luksFormat $hard_drive"
+	# cryptsetup -v luksOpen $hard_drive $lvm_encrypted_name
+
+	uuid=`cryptsetup luksUUID $hard_drive`
+	echo "$uuid"
 }
 
 encrypt_disk
