@@ -26,5 +26,12 @@ encrypt_disk () {
 	echo "Hard drive already encrypted"
 }
 
-encrypt_disk
+write2disk () {
+	uuid=`cryptsetup luksUUID $hard_drive`
+	echo "$uuid"
+}
+
+# encrypt_disk
+
+write2disk
 
