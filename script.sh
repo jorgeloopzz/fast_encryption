@@ -22,9 +22,8 @@ encrypt_disk () {
 
 	# cryptsetup luksFormat $hard_drive
 	# cryptsetup -v luksOpen $hard_drive $lvm_encrypted_name
-
-	uuid=`cryptsetup luksUUID $hard_drive`
-	echo "$uuid"
+	# mkfs.ext4 -L LuksPartition /dev/mapper/$lvm_encrypted_name
+	echo "Hard drive already encrypted"
 }
 
 encrypt_disk
