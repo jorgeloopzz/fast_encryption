@@ -3,7 +3,7 @@
 # Variables
 hard_drive="/dev/$1"
 mountpoint=`lsblk | grep $1 | awk '{print $7}'`
-is_removable=`lsblk | grep $1 | awk '{print $5}'`	# 0 means 'Not removable'
+is_removable=`lsblk | grep $1 | awk '{print $3}'`	# 0 means 'Not removable'
 detect_bootable_partition=`fdisk -l | grep $1 | awk '{print $6}'`
 lvm_encrypted_name="partition_encrypted"
 
