@@ -17,22 +17,22 @@ encrypt_disk () {
 			echo "The partition containing the bootloader must not be encrypted" ; exit
 		fi
 
-		# umount $mountpoint
-		echo "The $mountpoint is not empty"
+		umount $mountpoint
 	else
 		:
 	fi
 
-	# cryptsetup luksFormat $hard_drive
-	# cryptsetup -v luksOpen $hard_drive $lvm_encrypted_name
-	# mkfs.ext4 -L LuksPartition /dev/mapper/$lvm_encrypted_name
+	cryptsetup luksFormat $hard_drive
+	cryptsetup -v luksOpen $hard_drive $lvm_encrypted_name
+	mkfs.ext4 -L LuksPartition /dev/mapper/$lvm_encrypted_name
 	echo "Hard drive already encrypted"
 }
 
 write2disk () {
+	mount /dev/mapper/$lvm_encrypted_name $mountpoint 
+
 	uuid=`cryptsetup luksUUID $hard_drive`
 
-	mount /dev/mapper/$lvm_encrypted_name $mountpoint 
 
 	# Check if the 'crypttab' file exists
 	if [ -f /etc/crypttab  ]; then
@@ -43,19 +43,16 @@ write2disk () {
 
 	# Write changes to the encrypted volumes configuration file
 	# For more info run 'man crypttab'
-	echo "$lvm_encrypted_name	$uuid	none	luks" >> /etc/crypttab 
+	echo "$lvm_encrypted_name	UUID=$uuid	none	luks" >> /etc/crypttab 
 
 	# Write changes to 'fstab' to automatically mount the partition
 	# Read documentation to comment the right line
-	echo "
-################################
+	echo "################################
 #                              #
 # YOUR NEW ENCRYPTED PARTITION #
 #                              #
 ################################
-
-/dev/mapper/$lvm_encrypted_name	$mountpoint	ext4	defaults,relatime	0	2
-	" >> /etc/crypttab
+/dev/mapper/$lvm_encrypted_name	$mountpoint	ext4	defaults,relatime	0	2" >> /etc/fstab
 
 	nano /etc/fstab
 	
