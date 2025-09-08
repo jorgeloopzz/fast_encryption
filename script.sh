@@ -40,6 +40,25 @@ write2disk () {
 	else
 		touch /etc/crypttab
 	fi
+
+	# Write changes to the encrypted volumes configuration file
+	# For more info run 'man crypttab'
+	echo "$lvm_encrypted_name	$uuid	none	luks" >> /etc/crypttab 
+
+	# Write changes to 'fstab' to automatically mount the partition
+	# Read documentation to comment the right line
+	echo "
+################################
+#                              #
+# YOUR NEW ENCRYPTED PARTITION #
+#                              #
+################################
+
+/dev/mapper/$lvm_encrypted_name	$mountpoint	ext4	defaults,relatime	0	2
+	" >> /etc/crypttab
+
+	nano /etc/fstab
+	
 }
 
 # encrypt_disk
