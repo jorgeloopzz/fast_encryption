@@ -31,7 +31,15 @@ encrypt_disk () {
 
 write2disk () {
 	uuid=`cryptsetup luksUUID $hard_drive`
-	echo "$uuid"
+
+	mount /dev/mapper/$lvm_encrypted_name $mountpoint 
+
+	# Check if the 'crypttab' file exists
+	if [ -f /etc/crypttab  ]; then
+		:
+	else
+		touch /etc/crypttab
+	fi
 }
 
 # encrypt_disk
