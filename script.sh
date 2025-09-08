@@ -9,15 +9,14 @@ lvm_encrypted_name="partition_encrypted"
 
 encrypt_disk () {
 	if [ -n $mountpoint ]; then
-
 		# Check whether or not the encryption of the partition is supported
 		if [ $mountpoint = "/" ] || [ $mountpoint = "[SWAP]" ]; then
 			echo "Sorry, $mountpoint encryption is not supported." ; exit
 		elif [ $detect_bootable_partition = "EFI" ] || [ $detect_bootable_partition = "BIOS" ]; then
 			echo "The partition containing the bootloader must not be encrypted" ; exit
+		else
+			umount $mountpoint
 		fi
-
-		umount $mountpoint
 	else
 		:
 	fi
@@ -25,14 +24,12 @@ encrypt_disk () {
 	cryptsetup luksFormat $hard_drive
 	cryptsetup -v luksOpen $hard_drive $lvm_encrypted_name
 	mkfs.ext4 -L LuksPartition /dev/mapper/$lvm_encrypted_name
-	echo "Hard drive already encrypted"
 }
 
 write2disk () {
 	mount /dev/mapper/$lvm_encrypted_name $mountpoint 
 
 	uuid=`cryptsetup luksUUID $hard_drive`
-
 
 	# Check if the 'crypttab' file exists
 	if [ -f /etc/crypttab  ]; then
