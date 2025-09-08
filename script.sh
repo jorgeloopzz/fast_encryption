@@ -58,7 +58,16 @@ write2disk () {
 	
 }
 
-# encrypt_disk
-
-write2disk
+# Here the script starts
+case $is_removable in
+       0)
+        encrypt_disk
+        write2disk
+        ;;
+       1)
+        encrypt_disk
+        ;;
+       *)
+        ;;
+esac
 
