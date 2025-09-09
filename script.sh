@@ -5,6 +5,7 @@ hard_drive="/dev/$1"
 mountpoint=`lsblk | grep $1 | awk '{print $7}'`
 is_removable=`lsblk | grep $1 | awk '{print $3}'`	# 0 means 'Not removable'
 detect_bootable_partition=`fdisk -l | grep $1 | awk '{print $6}'`
+file_system_type=`lsblk -f | grep $1 | awk '{print $2}'`
 lvm_encrypted_name="partition_encrypted"
 
 encrypt_disk () {
@@ -49,7 +50,7 @@ write2disk () {
 # YOUR NEW ENCRYPTED PARTITION #
 #                              #
 ################################
-/dev/mapper/$lvm_encrypted_name	$mountpoint	ext4	defaults,relatime	0	2" >> /etc/fstab
+/dev/mapper/$lvm_encrypted_name	$mountpoint	$file_system_type	defaults,relatime	0	2" >> /etc/fstab
 
 	nano /etc/fstab
 	
