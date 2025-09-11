@@ -1,3 +1,4 @@
+﻿
 ﻿Please, before proceeding with the encryption, read the documentation carefully.
 
 # Information
@@ -17,19 +18,68 @@
 >
 >  <div align="center">
 >  
-> | **Runlevel** |                        **Description**                       						|
-> |:------------:|:--------------------------------------------------------------------:|
-> |       0      |                The system can be powered off.                					|
-> |       1      |               Single user mode; typically root.              						|
-> |       2      |        Multiple user mode with no Network File System.       		|
-> |       3      |           Multiple user mode without GUI, just CLI.          				|
-> |       4      |                        User-definable.                        									|
+> | **Runlevel** |                        **Description**                      	|
+> |:------------:|:------------------------------------------------------------:|
+> |       0      |                The system can be powered off.                |
+> |       1      |               Single user mode; typically root.              |
+> |       2      |        Multiple user mode with no Network File System.       |
+> |       3      |           Multiple user mode without GUI, just CLI.          |
+> |       4      |                        User-definable.                       |
 > |       5      | Multiple user mode with GUI; standard in most Linux distros.	|
-> |       6      |                            Reboot.                            										|
+> |       6      |                            Reboot.                           |
 >
 >  </div>
+>  
 
+# Running the script
+Before doing something ensure the script has execution permissions; `chmod 755 script.sh`. Once you are ready to go, execute it running `sudo ./script.sh` followed **ONLY** by the name of the partition. For example from the following output after run the `lsblk` command:
 
-  
+```bash
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+nvme0n1     259:0    0 238,5G  0 disk 
+├─nvme0n1p1 259:1    0   487M  0 part /boot/efi
+├─nvme0n1p2 259:2    0 161,1G  0 part /
+├─nvme0n1p3 259:3    0   1,9G  0 part [SWAP]
+└─nvme0n1p4 259:4    0    75G  0 part /home
+```
 
+If I wanted to encrypt the `home` partition (which was the main purpose this script was made for), I'd have to pass just `nvme0n1p4` as the argument, resulting in the next command: `./script.sh nvme0n1p4`. From this moment, you will drive through the different steps.
+
+## Making the changes persistent
+
+> [!NOTE] 
+> You can ignore this part of the docs whether you are encrypting a USB stick or whatever drive that's not the main one of your machine.
+
+Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done to the same with the `crypttab` one.
+
+### /etc/crypttab
+As the crypttabs's manual says, it *"contains descriptive information about encrypted devices"*. That information follows the next structure, and it's essential to accomplish the mounting process:
+
+```bash
+<encrypted volume name>	<uuid>	none	luks
+```
+
+You won't have to worry about this step because the script will automatically write this data to the `crypttab` file.
+
+### /etc/fstab
+The `fstab` file is actually the one used by the kernel to mount the partitions before loading the operating system.
+
+> [!WARNING] 
+> Here comes the most critical part of the whole process, since if any bad data is written to the file, you won't be able to power on your computer.
+
+`fstab` follows the next information structure, and as the same way with the `crypttab` file, it will be added automatically by the script.
+
+```bash
+<file system>	<mount point>	<type>	<options>	<dump>	<pass>
+```
+
+The only manual operation we have to make is commenting the line that establishes the mounting of the encrypted partition. Continuing with the example given before, if I went to encrypt the `home` partition then the next line would have to be commented by adding a **#** at the beginning:
+
+```bash
+...
+UUID=6c8a0b1d-5abc-4801-a226-2c5fd26ca693	/home           ext4    defaults        0       2
+...
+```
+
+With that, whole operation is finished.
 
