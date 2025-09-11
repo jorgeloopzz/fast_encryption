@@ -1,4 +1,3 @@
-﻿
 ﻿Please, before proceeding with the encryption, read the documentation carefully.
 
 # Information
@@ -52,7 +51,7 @@ If I wanted to encrypt the `home` partition (which was the main purpose this scr
 > [!NOTE] 
 > You can ignore this part of the docs whether you are encrypting a USB stick or whatever drive that's not the main one of your machine.
 
-Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done to the same with the `crypttab` one.
+Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done the same to the `crypttab` one.
 
 ### /etc/crypttab
 As the crypttabs's manual says, it *"contains descriptive information about encrypted devices"*. That information follows the next structure, and it's essential to accomplish the mounting process:
