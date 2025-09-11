@@ -17,8 +17,8 @@
 >
 >  <div align="center">
 >  
->  | **Runlevel** |                        **Description**                       						|
-> |:------------:|:--------------------------------------------------------------------	|
+> | **Runlevel** |                        **Description**                       						|
+> |:------------:|:--------------------------------------------------------------------:|
 > |       0      |                The system can be powered off.                					|
 > |       1      |               Single user mode; typically root.              						|
 > |       2      |        Multiple user mode with no Network File System.       		|
@@ -28,7 +28,6 @@
 > |       6      |                            Reboot.                            										|
 >
 >  </div>
->  
 
 
   
