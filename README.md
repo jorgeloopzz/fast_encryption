@@ -31,6 +31,8 @@
 >  </div>
 >  
 
+&nbsp;
+
 # Running the script
 Before doing something ensure the script has execution permissions; `chmod 755 script.sh`. Once you are ready to go, execute it running `sudo ./script.sh` followed **ONLY** by the name of the partition. For example from the following output after run the `lsblk` command:
 
@@ -82,4 +84,16 @@ UUID=6c8a0b1d-5abc-4801-a226-2c5fd26ca693	/home           ext4    defaults      
 ```
 
 With that, whole operation is finished.
+
+&nbsp;
+
+# Troubleshooting
+After I encrypted my `home` folder I was chill thinking I wouldn't find out any problem, but nothing could be further from the truth. Next time I powered on my machine, I couldn't type on decrypting passphrase menu with my laptop's keyboard, and the only way to boot was running the OS through recovery mode.
+
+After browsing the web for a while I realized that many people have been struggling with this trouble for [many years](https://bugs.launchpad.net/ubuntu/+source/plymouth/+bug/1386005?comments=all) and there's not been a solution yet, although some have managed to solve it:
+
+ - [Enter password on encrypted drive, keyboard not working](https://forums.linuxmint.com/viewtopic.php?t=211313&sid=41c9b0cc4d0f225260d974b21e3544fc)
+ - [Full Disk Encryption Passphrase at Boot: Keyboard not working](https://askubuntu.com/questions/613241/full-disk-encryption-passphrase-at-boot-keyboard-not-working)
+
+The most common answer to overcome this I found is to, apparently, using an external keyboard in case you are using a laptop. I haven't been able to try it so I must be quiet.
 
