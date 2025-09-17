@@ -51,7 +51,7 @@ If I wanted to encrypt the `home` partition (which was the main purpose this scr
 > [!NOTE] 
 > You can ignore this part of the docs whether you are encrypting a USB stick or whatever drive that's not the main one of your machine.
 
-Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done the same to the `crypttab` one.
+Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done the same to `crypttab`.
 
 ### /etc/crypttab
 As the crypttabs's manual says, it *"contains descriptive information about encrypted devices"*. That information follows the next structure, and it's essential to accomplish the mounting process:
@@ -66,9 +66,9 @@ You won't have to worry about this step because the script will automatically wr
 The `fstab` file is actually the one used by the kernel to mount the partitions before loading the operating system.
 
 > [!WARNING] 
-> Here comes the most critical part of the whole process, since if any bad data is written to the file, you won't be able to power on your computer.
+> Here comes the most critical part of the whole process, since if any bad information is written to the file, you won't be able to power on your computer.
 
-`fstab` follows the next information structure, and as the same way with the `crypttab` file, it will be added automatically by the script.
+`fstab` follows the next information structure, and as the same way with `crypttab`, it will be added automatically by the script.
 
 ```bash
 <file system>	<mount point>	<type>	<options>	<dump>	<pass>
