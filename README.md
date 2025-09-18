@@ -6,7 +6,7 @@
 > Some considerations to take in count;
 > - First thing you must do is to backup whatever data you have on the drive you are going to encrypt. This feature will be added soon.
 > 
-> - Secondly,  be aware that neither `/` nor `[SWAP]` partitions encryption is not supported, since the system itself has to be mounted to run the system. On the other hand, when it comes to `[SWAP]`, the steps to disable its partition are different, and there would be to do it manually. 
+> - Secondly,  be aware that neither `/` nor `[SWAP]` partitions encryption is supported, since the system itself has to be mounted to run the system. On the other hand, when it comes to `[SWAP]`, the steps to disable its partition are different, and there would be to do it manually. 
 > 
 > - Ensure you have the following dependencies:
 >   - `nano`
