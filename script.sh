@@ -22,6 +22,10 @@ detect_bootable_partition=`fdisk -l | grep $1 | awk '{print $6}'`
 file_system_type=`lsblk -f | grep $1 | awk '{print $2}'`
 lvm_encrypted_name="partition_encrypted"
 
+#############
+# FUNCTIONS	#
+#############
+
 #
 # This function will fully encrypt any partition/hard drive you tell.
 #
@@ -82,7 +86,10 @@ write2disk () {
 	nano /etc/fstab
 }
 
-# Here the script starts
+#############
+# LAUNCHING	#
+#############
+
 case $is_removable in
        0)
         encrypt_disk
