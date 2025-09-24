@@ -54,7 +54,7 @@ If I wanted to encrypt the `home` partition (which was the main purpose this scr
 Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done the same to `crypttab`.
 
 ### /etc/crypttab
-As the crypttabs's manual says, it *"contains descriptive information about encrypted devices"*. That information follows the next structure, and it's essential to accomplish the mounting process:
+As the crypttabs's manual says, it *contains descriptive information about encrypted devices*. That information follows the next structure, and it's essential to accomplish the mounting process:
 
 ```bash
 <encrypted volume name>	<uuid>	none	luks
