@@ -27,7 +27,7 @@ lvm_encrypted_name="partition_encrypted"
 #############
 
 #
-# This function will fully encrypt any partition/hard drive you tell.
+# This function will fully encrypt any partition/hard drive you specify.
 #
 encrypt_disk () {
 	# Confirm if partition is mounted on the system to automatically umount it

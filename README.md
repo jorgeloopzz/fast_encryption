@@ -33,7 +33,7 @@
 &nbsp;
 
 # Running the script
-Before doing something ensure the script has execution permissions; `chmod 755 script.sh`. Once you are ready to go, execute it running `sudo ./script.sh` followed **ONLY** by the name of the partition. For example from the following output after run the `lsblk` command:
+Before doing something ensure the script has execution permissions; `chmod 755 script.sh`. Once you are ready to go, execute it running `sudo ./script.sh` followed **ONLY** by the name of the partition. For example from the following output after running the `lsblk` command:
 
 ```bash
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
