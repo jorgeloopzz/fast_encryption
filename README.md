@@ -19,7 +19,7 @@
 >  
 > | **Runlevel** |                        **Description**                      	|
 > |:------------:|:------------------------------------------------------------:|
-> |       0      |                The system can be powered off.                |
+> |       0      |                The system is powered off.                    |
 > |       1      |               Single user mode; typically root.              |
 > |       2      |        Multiple user mode with no Network File System.       |
 > |       3      |           Multiple user mode without GUI, just CLI.          |
@@ -33,7 +33,7 @@
 &nbsp;
 
 # Running the script
-Before doing something ensure the script has execution permissions; `chmod 755 script.sh`. Once you are ready to go, execute it running `sudo ./script.sh` followed **ONLY** by the name of the partition. For example from the following output after running the `lsblk` command:
+Before doing something ensure the script has execution permissions; `chmod 755 script.sh`. Once you are ready to go, execute it running `./script.sh` followed **ONLY** by the name of the partition. For example from the following output after running the `lsblk` command:
 
 ```bash
 NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
@@ -51,7 +51,7 @@ If I wanted to encrypt the `home` partition (which was the main purpose this scr
 > [!NOTE] 
 > You can ignore this part of the docs whether you are encrypting a USB stick or whatever drive that's not the main one of your machine.
 
-Modifying a main drive's partitions entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done the same to `crypttab`.
+Modifying a main drive's partition entails to mount them at each booting, then we'll need to tell the kernel to do so. That can be achieved by modifying the `fstab` file, after having done the same to `crypttab`.
 
 ### /etc/crypttab
 As the crypttabs's manual says, it *contains descriptive information about encrypted devices*. That information follows the next structure, and it's essential to accomplish the mounting process:
@@ -94,5 +94,5 @@ After browsing the web for a while I realized that many people have been struggl
  - [Enter password on encrypted drive, keyboard not working](https://forums.linuxmint.com/viewtopic.php?t=211313&sid=41c9b0cc4d0f225260d974b21e3544fc)
  - [Full Disk Encryption Passphrase at Boot: Keyboard not working](https://askubuntu.com/questions/613241/full-disk-encryption-passphrase-at-boot-keyboard-not-working)
 
-The most common answer to overcome this I found is to, apparently, using an external keyboard in case you are using a laptop. I haven't been able to try it so I must be quiet.
+The most common answer to overcome this I found is to, apparently, using an external keyboard in case you are using a laptop. I haven't been able to try it so...
 
